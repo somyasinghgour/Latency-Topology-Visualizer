@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Latency Topology Visualizer
 
-## Getting Started
+## Overview
+This project is an interactive 3D latency topology visualizer for cryptocurrency exchange servers and cloud regions. It features:
+- A 3D globe with exchange server markers
+- Animated, color-coded latency lines with real-time mock updates
+- Cloud provider region overlays
+- Historical latency trends with recharts
+- Filtering, search, and export features
+- Responsive, modern UI using Next.js, Tailwind CSS, and shadcn/ui
 
-First, run the development server:
+## Features
+- **3D World Map**: Interactive globe using Three.js and @react-three/fiber
+- **Exchange Markers**: Major crypto exchanges plotted as 3D markers
+- **Animated Latency Lines**: Real-time, color-coded connections between servers
+- **Cloud Provider Regions**: Visual overlays for AWS, GCP, Azure
+- **Historical Trends**: Time-series latency charts with recharts
+- **Filtering & Controls**: Filter by exchange, provider, latency; theme toggle
+- **Export**: Download latency charts as PNG or CSV
 
+## Installation & Setup
+
+### 1. Clone the Repository or extract the zip file.
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd latency-topology-visualizer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Key Dependencies and Why They Are Used
+- **next**: React framework for SSR and static web apps
+- **react, react-dom**: Core React libraries
+- **three**: 3D rendering engine for the globe
+- **@react-three/fiber**: React renderer for Three.js
+- **@react-three/drei**: Useful helpers for react-three-fiber (controls, stars, etc.)
+- **tailwindcss, postcss, autoprefixer**: Utility-first CSS framework and tooling
+- **shadcn/ui**: Modern, accessible React UI components (Card, Switch, Popover, etc.)
+- **zustand**: State management (for future extensibility)
+- **swr**: Data fetching and caching (for real APIs in the future)
+- **recharts**: Charting library for historical latency trends
+- **axios**: HTTP client (for real API integration)
+- **date-fns**: Date formatting utilities
+- **html-to-image, file-saver**: Export chart as PNG/CSV
+- **next-themes**: Theme (dark/light) management
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Development Server
+```bash
+npm run dev
+```
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+### 4. Production Build
+```bash
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
+- `app/` - Next.js app directory (routing, layout, global styles)
+- `components/` - All React components (Globe, UI, chart, etc.)
+  - `Globe.tsx` - Main 3D visualization and side panel
+  - `ui/` - shadcn/ui components (Card, Switch, Popover, etc.)
+- `public/` - Static assets (SVGs, textures)
+- `lib/` - Utility functions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#Installation and there use
+- **three, @react-three/fiber, @react-three/drei**: For rendering the interactive 3D globe, markers, lines, and overlays.
+- **tailwindcss, postcss, autoprefixer**: For styling the UI in a utility-first, responsive way.
+- **shadcn/ui**: For modern, accessible UI controls (side panel, toggles, popovers, etc.).
+- **zustand, swr**: For scalable state management and data fetching (mocked now, ready for real APIs).
+- **recharts**: For rendering historical latency charts.
+- **axios, date-fns**: For future real API integration and date formatting.
+- **html-to-image, file-saver**: For exporting the chart as PNG or CSV.
+- **next-themes**: For dark/light mode support.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Usage
+- Use the side panel to filter exchanges, providers, and latency range.
+- Toggle dark/light mode and cloud region overlays.
+- Select server pairs and time ranges to view historical latency trends.
+- Export charts as PNG or CSV.
 
-## Deploy on Vercel
+## Source & Technologies
+- 3D globe texture: [Three.js Earth Texture](https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg)
+- Built with Next.js, React, Three.js, Tailwind CSS, shadcn/ui, recharts, and more.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
