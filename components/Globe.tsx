@@ -12,11 +12,11 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianG
 import { Switch } from "./ui/switch";
 import * as htmlToImage from 'html-to-image';
 import { saveAs } from 'file-saver';
-
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select";
 const LIGHT_MAP_URL = 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg';
 const DARK_MAP_URL = 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg';
 
-
+// MOCK DATA
 const EXCHANGES = [
   {
     name: 'Binance',
@@ -51,6 +51,8 @@ const EXCHANGES = [
     cloud: 'AWS',
   },
 ];
+
+// LEGEND COLORS
 
 const PROVIDER_COLORS: Record<string, string> = {
   AWS: '#facc15', 
@@ -276,6 +278,7 @@ export default function Globe() {
             <Stars radius={10} depth={50} count={5000} factor={4} fade />
             <OrbitControls enablePan enableZoom enableRotate />
           </Canvas>
+          {/* HOVER DIALOG */}
           {hovered !== null && (
             <Popover open>
               <PopoverTrigger asChild>
@@ -303,6 +306,7 @@ export default function Globe() {
         <div className="font-bold text-lg mb-2">Controls</div>
         <div className="flex items-center gap-2 mb-2">
           <span className="text-sm">Light</span>
+          {/* SHADCN COMPONENTS */}
           <Switch checked={resolvedTheme === 'dark'} onCheckedChange={v => setTheme(v ? 'dark' : 'light')} />
           <span className="text-sm">Dark</span>
         </div>
@@ -346,15 +350,18 @@ export default function Globe() {
         <div className="font-bold text-lg mb-2">Historical Latency Trends</div>
         <div className="mb-2">
           <label className="block text-sm font-medium mb-1">Server Pair</label>
-          <select
-            className="w-full border rounded p-1"
-            value={selectedPair.join('-')}
-            onChange={e => setSelectedPair(e.target.value.split('-').map(Number) as [number, number])}
-          >
-            {filteredPairs.map(([a, b]) => (
-              <option key={`${a}-${b}`} value={`${a}-${b}`}>{filteredExchanges[a].name} ↔ {filteredExchanges[b].name}</option>
-            ))}
-          </select>
+          <Select value={selectedPair.join('-')} onValueChange={val => setSelectedPair(val.split('-').map(Number) as [number, number])}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select server pair" />
+            </SelectTrigger>
+            <SelectContent>
+              {filteredPairs.map(([a, b]) => (
+                <SelectItem key={`${a}-${b}`} value={`${a}-${b}`}>
+                  {filteredExchanges[a].name} ↔ {filteredExchanges[b].name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="mb-2 flex gap-2">
           {TIME_RANGES.map(r => (
